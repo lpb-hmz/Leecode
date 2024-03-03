@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int sLen = s.size(),pLen = p.size();
+        if(sLen<pLen)
+        {
+            return vector<int>();
+        }
+
+        vector<int> ans;
+        vector<int> sCount(26);
+        vector<int> pCount(26);
+        for(int i = 0;i<pLen;++i)
+        {
+            ++sCount[s[i]-'a'];//sCount[1]++;scount[2]++;scoount[3]++;
+            ++pCount[p[i]-'a'];
+
+        }
+        if(sCount == pCount)
+        {
+            ans.emplace_back(0);
+        }
+
+        for(int i=pLen;i<sLen;++i)//从3到10
+        {
+            --sCount[s[i-pLen]-'a'];
+            ++sCount[s[i]-'a'];
+
+            if(sCount==pCount)
+            {
+                ans.emplace_back(i-pLen+1);
+            }
+        }
+
+        // for (int i = 0; i < sLen - pLen; ++i)//一共循环10-3=7次，0-7 
+        // {
+        //     --sCount[s[i] - 'a'];
+        //     ++sCount[s[i + pLen] - 'a'];
+
+        //     if (sCount == pCount) 
+        //     {
+        //         ans.emplace_back(i + 1);
+        //     }
+        // }
+
+    return ans;
+    }
+};
